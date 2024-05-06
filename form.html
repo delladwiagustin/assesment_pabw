@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Data Buku</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Tambah Data Buku</h2>
+    <form id="add-form">
+        <label for="judul">Judul:</label>
+        <input type="text" id="judul" name="judul"><br><br>
+        
+        <label for="pengarang">Pengarang:</label>
+        <input type="text" id="pengarang" name="pengarang"><br><br>
+        
+        <label for="tahun_terbit">Tahun Terbit:</label>
+        <input type="text" id="tahun_terbit" name="tahun_terbit"><br><br>
+        
+        <button type="submit">Tambah Data</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            // Tangani submit form
+            $("#add-form").submit(function(event){
+                // Mencegah tindakan default dari form (pengiriman ulang halaman)
+                event.preventDefault();
+
+                // Ambil nilai-nilai dari input fields
+                var judul = $("#judul").val();
+                var pengarang = $("#pengarang").val();
+                var tahun_terbit = $("#tahun_terbit").val();
+
+                // Kirim data ke server menggunakan AJAX
+                $.ajax({
+                    url: "pabw.php",
+                    type: "POST",
+                    data: {
+                        judul: judul,
+                        pengarang: pengarang,
+                        tahun_terbit: tahun_terbit
+                    },
+                    success: function(response){
+                        // Tambahkan data baru ke tabel setelah berhasil
+                        // Misalnya, dengan memuat ulang halaman atau memperbarui tabel menggunakan AJAX
+                        // Di sini Anda dapat menambahkan logika tambahan sesuai kebutuhan Anda
+                        alert(response); // Tampilkan pesan respons dari server
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log("Error: " + errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
